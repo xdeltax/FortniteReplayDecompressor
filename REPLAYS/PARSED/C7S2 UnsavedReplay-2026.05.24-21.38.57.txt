@@ -7,7 +7,8 @@ Match: 2026-05-24T19:38:57.0510000Z; Duration: 19:06
        Hard Count: Real 14; BOT 84; NPC 25; Sum 123
 Owner: xdx2k7 (634311A416164074906752232C0DC6D2)
        Rank#: #01
-       killed 7 / knocked 1; 
+       killed 8 / knocked 1; 
+       Kill Feed: 7 killed / 1 knocked;
        Accuracy 23.4%; Assists 0; Revives 0; Damage: 1505 Given; 765 Received
 Owner Killfeed:
    1. [02:47] killed!: [BOT ] Dessloch52     | Rank: 95

@@ -7,7 +7,7 @@ Match: 2026-05-22T17:47:26.6890000Z; Duration: 20:57
        Hard Count: Real 16; BOT 84; NPC 25; Sum 125
 Owner: xdx2k7 (634311A416164074906752232C0DC6D2)
        Rank#: #01
-       killed 6 / knocked 3; 
+       killed 8 / knocked 3; 
        Accuracy 20.7%; Assists 0; Revives 0; Damage: 1564 Given; 552 Received
 Owner Killfeed:
    1. [05:41] killed!: [BOT ] NomnomCarver     | Rank: 70

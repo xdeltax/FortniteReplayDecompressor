@@ -7,7 +7,8 @@ Match: 2026-05-17T18:56:55.9800000Z; Duration: 17:44
        Hard Count: Real 15; BOT 84; NPC 25; Sum 124
 Owner: xdx2k7 (634311A416164074906752232C0DC6D2)
        Rank#: #01
-       killed 9 / knocked 1; 
+       killed 10 / knocked 1; 
+       Kill Feed: 9 killed / 1 knocked;
        Accuracy 31.9%; Assists 0; Revives 0; Damage: 1457 Given; 280 Received
 Owner Killfeed:
    1. [05:30] killed!: [BOT ] WowerZower     | Rank: 70

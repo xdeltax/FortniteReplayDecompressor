@@ -8,6 +8,7 @@ Match: 2026-05-24T22:47:39.0430000Z; Duration: 23:28
 Owner: xdx2k7 (634311A416164074906752232C0DC6D2)
        Rank#: #01
        killed 8 / knocked 0; 
+       Kill Feed: 8 killed / 0 knocked;
        Accuracy 16.0%; Assists 0; Revives 0; Damage: 1400 Given; 648 Received
 Owner Killfeed:
    1. [05:16] killed!: [BOT ] Питбуль1         | Rank: 59

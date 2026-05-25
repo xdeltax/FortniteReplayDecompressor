@@ -8,6 +8,7 @@ Match: 2026-05-23T19:47:54.9890000Z; Duration: 07:16
 Owner: xdx2k7 (634311A416164074906752232C0DC6D2)
        Rank#: #24
        killed 3 / knocked 0; 
+       Kill Feed: 3 killed / 0 knocked;
        Killed at 08:49 by BOT Player (xXMariAnnieXx)
        Accuracy 33.9%; Assists 0; Revives 0; Damage: 455 Given; 391 Received
 Owner Killfeed:
