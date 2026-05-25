@@ -1,0 +1,25 @@
+/Game/Athena/PlayerPawn_Athena.PlayerPawn_Athena_C
+  Owner
+  PlayerState
+/Game/Spectating/BP_ReplayPC_Athena.BP_ReplayPC_Athena_C
+  PlayerState
+/Game/Athena/Athena_GameState.Athena_GameState_C
+  RecorderPlayerState
+  WinningPlayerState
+/Script/FortniteGame.FortPlayerStateAthena
+  Owner
+  PlayerID
+  bOnlySpectator
+  bIsABot
+  UniqueID
+  PlayerNamePrivate
+  PartyOwnerUniqueId
+  PlatformUniqueNetId
+  Place
+  KillScore
+  bIsDisconnected
+  DeathCause
+  DeathTags
+  FinisherOrDownerTags
+  VictimTags
+  BotUniqueId
