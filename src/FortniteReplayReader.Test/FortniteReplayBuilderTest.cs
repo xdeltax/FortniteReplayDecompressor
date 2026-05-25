@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using System.Reflection;
 using FortniteReplayReader.Models;
 using FortniteReplayReader.Models.NetFieldExports;
 using Unreal.Core.Models;
@@ -310,6 +312,79 @@ public class FortniteReplayBuilderTest
         builder.Build(replay);
         Assert.NotEmpty(replay.KillFeed);
         Assert.Equal(1, replay.KillFeed.First().PlayerId);
+    }
+
+    [Fact]
+    public void KillFeedTimesExcludeWarmupLobbyOffsetTest()
+    {
+        builder.UpdateGameState(new GameState()
+        {
+            WarmupCountdownEndTime = 102,
+            RecorderPlayerState = new ActorGuid() { Value = 100 }
+        });
+
+        builder.AddActorChannel(1, 100);
+        builder.UpdatePlayerState(1, new FortPlayerState()
+        {
+            PlayerID = 1,
+            UniqueId = "owner-epic",
+            BotUniqueId = "",
+            bIsABot = false,
+            TeamIndex = 1,
+            HeroType = new ItemDefinition() { Name = "bandolier" }
+        });
+
+        builder.AddActorChannel(2, 200);
+        builder.UpdateGameState(new GameState()
+        {
+            ReplicatedWorldTimeSecondsDouble = 451
+        });
+        builder.UpdatePlayerState(2, new FortPlayerState()
+        {
+            PlayerID = 2,
+            UniqueId = "victim-one",
+            BotUniqueId = "",
+            bIsABot = false,
+            TeamIndex = 2,
+            HeroType = new ItemDefinition() { Name = "bandolier" },
+            DeathCause = 1,
+            FinisherOrDowner = 100
+        });
+
+        builder.AddActorChannel(3, 300);
+        builder.UpdateGameState(new GameState()
+        {
+            ReplicatedWorldTimeSecondsDouble = 537
+        });
+        builder.UpdatePlayerState(3, new FortPlayerState()
+        {
+            PlayerID = 3,
+            UniqueId = "victim-two",
+            BotUniqueId = "",
+            bIsABot = false,
+            TeamIndex = 3,
+            HeroType = new ItemDefinition() { Name = "bandolier" },
+            DeathCause = 1,
+            FinisherOrDowner = 100
+        });
+
+        builder.Build(replay);
+
+        var analysisText = BuildAnalysisText(replay);
+
+        Assert.Contains("[05:49] killed!", analysisText);
+        Assert.Contains("[07:15] killed!", analysisText);
+    }
+
+    private static string BuildAnalysisText(FortniteReplay replay)
+    {
+        var analyzerAssembly = AppDomain.CurrentDomain.GetAssemblies()
+            .FirstOrDefault(assembly => assembly.GetName().Name == "ConsoleReader")
+            ?? Assembly.Load("ConsoleReader");
+
+        var analyzerType = analyzerAssembly.GetType("ReplayAnalyzer", throwOnError: true)!;
+        var method = analyzerType.GetMethod("BuildTextAnalysis", BindingFlags.NonPublic | BindingFlags.Static)!;
+        return (string)method.Invoke(null, new object[] { replay, @"C:\\replay.replay" })!;
     }
 
     [Fact]

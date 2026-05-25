@@ -28,6 +28,7 @@ public class GameData
     public int? TournamentRound { get; set; }
     public bool? IsLargeTeamGame { get; set; }
 
+    public float? WarmupCountdownEndTime { get; set; }
     public float? AircraftStartTime { get; set; }
     public float? SafeZonesStartTime { get; set; }
 

@@ -127,6 +127,7 @@ public class FortniteReplayBuilder
 
         GameData.TotalPlayerStructures ??= state.TotalPlayerStructures;
 
+        GameData.WarmupCountdownEndTime ??= state.WarmupCountdownEndTime;
         GameData.AircraftStartTime ??= state.AircraftStartTime;
         GameData.SafeZonesStartTime ??= state.SafeZonesStartTime;
 

@@ -190,11 +190,11 @@ internal static class ReplayAnalyzer
 
             if (owner.DeathTimeDouble.HasValue || owner.DeathTime.HasValue)
             {
-                var deathTime = owner.DeathTimeDouble ?? owner.DeathTime;
+                var deathTime = GetNormalizedEventTimeSeconds(replay, owner.DeathTimeDouble ?? owner.DeathTime);
                 var ownerDeathEntry = ownerById.HasValue
                     ? killFeed
                         .Where(k => k.PlayerId == ownerById.Value && !k.IsRevived)
-                        .OrderByDescending(k => GetEventTimeSeconds(k) ?? double.MinValue)
+                        .OrderByDescending(k => GetNormalizedEventTimeSeconds(replay, k) ?? double.MinValue)
                         .FirstOrDefault()
                     : null;
                 var killerType = "unknown";
@@ -270,7 +270,7 @@ internal static class ReplayAnalyzer
                         : (!string.IsNullOrWhiteSpace(entry.PlayerName)
                             ? entry.PlayerName
                             : (entry.PlayerId.HasValue ? $"PlayerID:{entry.PlayerId.Value}" : "unknown"));
-                    var time = GetEventTimeSeconds(entry);
+                    var time = GetNormalizedEventTimeSeconds(replay, entry);
                     var timeFmt = time.HasValue ? FormatDurationMmSs(time.Value) : "??:??";
                     var victimRank = victimPlayer?.Placement.HasValue == true ? victimPlayer.Placement.Value.ToString() : "??";
                     lines.Add($"  {i + 1,2}. [{timeFmt}] {action}: [{tag}] {victim.PadRight(killfeedVictimWidth)} | Rank: {victimRank}");
@@ -337,19 +337,27 @@ internal static class ReplayAnalyzer
         return string.Join(Environment.NewLine, lines);
     }
 
-    private static double? GetEventTimeSeconds(KillFeedEntry entry)
+    private static double? GetNormalizedEventTimeSeconds(FortniteReplay replay, KillFeedEntry entry)
     {
-        if (entry.ReplicatedWorldTimeSecondsDouble.HasValue)
+        return GetNormalizedEventTimeSeconds(replay, entry.ReplicatedWorldTimeSecondsDouble ?? entry.ReplicatedWorldTimeSeconds);
+    }
+
+    private static double? GetNormalizedEventTimeSeconds(FortniteReplay replay, double? eventTimeSeconds)
+    {
+        if (!eventTimeSeconds.HasValue)
         {
-            return entry.ReplicatedWorldTimeSecondsDouble.Value;
+            return null;
         }
 
-        if (entry.ReplicatedWorldTimeSeconds.HasValue)
-        {
-            return entry.ReplicatedWorldTimeSeconds.Value;
-        }
+        return Math.Max(0, eventTimeSeconds.Value - GetKillfeedTimeOffsetSeconds(replay));
+    }
 
-        return null;
+    private static double GetKillfeedTimeOffsetSeconds(FortniteReplay replay)
+    {
+        return replay.GameData?.WarmupCountdownEndTime
+            ?? replay.GameData?.AircraftStartTime
+            ?? replay.GameData?.SafeZonesStartTime
+            ?? 0;
     }
 
     private static string GetPlayerDisplayName(PlayerData? player)
