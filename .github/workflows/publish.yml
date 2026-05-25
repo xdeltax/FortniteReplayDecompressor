@@ -43,5 +43,5 @@ jobs:
         with:
           name: ReplayTools-win-x64
           path: |
-            dist/ConsoleReader/**
-            dist/ReplayWatcher/**
+            repo/dist/ConsoleReader/**
+            repo/dist/ReplayWatcher/**
